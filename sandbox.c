@@ -12,12 +12,13 @@
 char *name;
 void usage(void) {
     fprintf(stderr, "Usage: %s [opts] -- <command> <arg1> ...\n"
+/*
             "    -i <stdin file>\n"
             "    -o <stdout file>\n"
             "    -e <stderr file>\n"
+*/
             "    -m <max memory in MB, default 16, max 1024>\n"
             "    -c <max CPU time in seconds, default 10, max 300>\n"
-            "    -t <max time in seconds, default 10, max 300>\n"
             "    -s <syscall to allow>\n", name);
     exit(1);
 }
@@ -36,15 +37,15 @@ void limit(int resource, rlim_t value) {
 int main(int argc, char **argv, char **envp) {
     name = argv[0];
 
-    char *stdin_file = NULL, *stdout_file = NULL, *stderr_file = NULL;
+    /* char *stdin_file = NULL, *stdout_file = NULL, *stderr_file = NULL; */
     int max_mem = 16;
     int max_cpu = 10;
-    int max_time = 10;
 
     /* parse command-line args */
     int c;
-    while ((c = getopt(argc, argv, "i:o:e:m:c:t:s:")) >= 0) {
+    while ((c = getopt(argc, argv, "m:c:s:")) >= 0) {
         switch (c) {
+        /*
         case 'i':
             stdin_file = optarg;
             break;
@@ -54,6 +55,7 @@ int main(int argc, char **argv, char **envp) {
         case 'e':
             stderr_file = optarg;
             break;
+        */
         case 'm':
             max_mem = atoi(optarg);
             if (max_mem < 1 || max_mem > 1024)
@@ -62,11 +64,6 @@ int main(int argc, char **argv, char **envp) {
         case 'c':
             max_cpu = atoi(optarg);
             if (max_cpu < 1 || max_cpu > 300)
-                usage();
-            break;
-        case 't':
-            max_time = atoi(optarg);
-            if (max_time < 1 || max_time > 300)
                 usage();
             break;
         case 's':
