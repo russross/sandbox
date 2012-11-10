@@ -87,7 +87,6 @@ int main(int argc, char **argv, char **envp) {
     limit(RLIMIT_DATA, max_mem*MB);
     limit(RLIMIT_FSIZE, 1*MB);
     limit(RLIMIT_MEMLOCK, 0);
-    limit(RLIMIT_MSGQUEUE, 0);
     limit(RLIMIT_NOFILE, 10);
     limit(RLIMIT_NPROC, 1);
     limit(RLIMIT_STACK, max_mem*MB);
