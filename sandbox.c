@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define __USE_BSD 1
 #include <unistd.h>
 #include <getopt.h>
 #include <sys/time.h>
